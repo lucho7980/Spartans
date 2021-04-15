@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
  import axios from 'axios'; 
 import { useFormik} from 'formik';
  import  * as Yup from 'yup'; 
 
 
 function CreateUser(){
+    const { setSucess}= useState(null);
     const validate = values => {
         const errors = {};
         if(!values.username){
@@ -41,15 +42,22 @@ function CreateUser(){
              password: Yup.string().required(),
             confirmPassword: Yup.string().required(),
         }), 
-        onSubmit:  (formData) => {
-            console.log(formData);
+        onSubmit: async (values) => {
+            console.log(values);
+            const {confirmPassword, ...data } = values;
+            const response = axios.post('http://localhost:4000/users',data).catch((err)=>{
+                if(err && err.response){
+                    console.log("Error: ",err);
+                };
+                if(response && response.data){
+                    setSucess(response.data.message)
+                    
+                }
+            })
+            
         }
       
     })
-   /* onsubmit = async (e)=> {
-       e.preventDefault();
-       await axios.post('http://localhost:4000/users',{username:this.formData.username, email:this.formData.email,password:this.formData.password, confirmPassword:this.formData.confirmPassword})
-   } */
 
         return(
             <div className="row">
@@ -58,6 +66,7 @@ function CreateUser(){
                        <div className="card-title"> 
                        <h3>Registrate!</h3>
                        </div>
+                       
                         <form action="" onSubmit={formik.handleSubmit} >
                             <div className="form-group">
                         <input type="text" placeholder="tu nombre va aqui" name="username" id="username" onChange={formik.handleChange} />
