@@ -37,6 +37,7 @@ app.use((req,res,next)=>{
 })
 //Rutas
 app.use('/users',require('./routes/users'));
+app.use('/news', require('./routes/news'))
 //app.use(require('./routes')); 
 //Exportar
 module.exports= app;

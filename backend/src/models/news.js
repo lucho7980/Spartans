@@ -9,28 +9,21 @@ const newsSchema = new Schema({
         type:String,
         required:true
     },
-    tag:{
+    cathegory:{
         type:String,
         required:true
     },
-    description:{
+    content:{
         type:String,
-        required:true,
-    },
-    sport:{
-        type:String,
-        required:true
+
     },
     date:{
         type:Date,
-        required:true
+        required:true,
+        default: Date.now
     },
-    main:{
-        type:Boolean
-        
-    }
 },{
     timestamps:true
 });
 
-module.exports= model('newsSchema', newsSchema);
+module.exports= model('News', newsSchema);
