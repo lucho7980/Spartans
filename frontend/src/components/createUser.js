@@ -1,5 +1,5 @@
 import React from 'react';
- import axios from 'axios'; 
+ //import axios from 'axios'; 
 import { useFormik} from 'formik';
  import  * as Yup from 'yup'; 
 
@@ -98,4 +98,4 @@ function CreateUser(){
             </div>
         )
     }
-export default CreateUser
+export default CreateUser;
